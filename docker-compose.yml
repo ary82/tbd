@@ -1,6 +1,6 @@
 services:
   weaviate:
-    network_mode: "host"
+    network_mode: ${DOCKER_NETWORK_MODE}
     command:
     - --host
     - 0.0.0.0

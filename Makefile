@@ -15,5 +15,6 @@ run:
 clean:
 	@echo "cleaning python3 server..."
 	@rm -rf ./.venv
+	@rm -rf ./__pycache__
 
 .PHONY: all build run
