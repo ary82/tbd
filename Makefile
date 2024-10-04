@@ -2,18 +2,18 @@ all: build run
 
 run:
 	@( \
-		 echo "making python venv"; \
-		 python -m venv .venv; \
-		 echo "sourcing python venv"; \
+		 echo "making python3 venv"; \
+		 python3 -m venv .venv; \
+		 echo "sourcing python3 venv"; \
 		 source ./.venv/bin/activate; \
 		 echo "downloading dependencies"; \
 		 pip install -r ./requirements.txt; \
 		 echo "starting py-server"; \
-		 python ./main.py; \
+		 python3 -m flask --app ./main.py --debug run; \
 	)
 
 clean:
-	@echo "cleaning Python server..."
+	@echo "cleaning python3 server..."
 	@rm -rf ./.venv
 
 .PHONY: all build run
