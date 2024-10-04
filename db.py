@@ -2,6 +2,9 @@ import weaviate
 import requests
 import json
 from weaviate.classes.config import Configure
+import os
+from dotenv import load_dotenv
+
 
 client = weaviate.connect_to_local()
 
@@ -15,12 +18,12 @@ try:
     #         Configure.NamedVectors.text2vec_ollama(
     #             name="title_vector",
     #             source_properties=["question", "answer"],
-    #             api_endpoint="http://localhost:11434",
+    #            api_endpoint=os.getenv("VECTORIZER_API_ENDPOINT"),
     #             model="nomic-embed-text",
     #         )
     #     ],
     #     generative_config=Configure.Generative.ollama(
-    #         api_endpoint="http://localhost:11434",
+    #         api_endpoint=os.getenv("GENERATIVE_API_ENDPOINT"),
     #         model="tinyllama",
     #     ),
     # )
@@ -30,7 +33,7 @@ try:
     #     "https://raw.githubusercontent.com/weaviate-tutorials/quickstart/main/data/jeopardy_tiny.json"
     # )
     # data = json.loads(resp.text)  # Load data
-    #
+    # 
     # question_objs = list()
     # for i, d in enumerate(data):
     #     question_objs.append(
@@ -40,7 +43,7 @@ try:
     #             "category": d["Category"],
     #         }
     #     )
-    #
+    # 
     # questions = client.collections.get("Question")
     # questions.data.insert_many(question_objs)
 
@@ -57,7 +60,7 @@ try:
     response = questions.generate.near_text(
         query="biology",
         limit=2,
-        single_prompt="Explain {answer} as you might to a five-year-old.",
+        single_prompt="explain question {question}",
     )
 
     print(response.objects[0].generated)  # Inspect the generated text
